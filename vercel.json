@@ -18,6 +18,10 @@
     {
       "src": "/api/data",
       "dest": "/api/data.js"
+    },
+    {
+      "src": "/api/videos",
+      "dest": "/api/videos.js"
     }
   ]
 }
