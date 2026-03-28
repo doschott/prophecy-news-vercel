@@ -71,12 +71,39 @@ export default async function handler(req, res) {
     // Count trending videos
     const trendingCount = (row.videos || []).filter(v => v.is_trending).length
 
+    // Compute category distribution
+    const categoryCounts = {}
+    ;(row.videos || []).forEach(v => {
+      const cat = v.video_category || 'Other'
+      categoryCounts[cat] = (categoryCounts[cat] || 0) + 1
+    })
+
+    // Compute source (channel) distribution
+    const sourceCounts = {}
+    const sourceList = []
+    ;(row.videos || []).forEach(v => {
+      const channel = v.channel_name || 'Unknown'
+      if (!sourceCounts[channel]) {
+        sourceCounts[channel] = {
+          name: channel,
+          count: 0,
+          totalViews: 0
+        }
+      }
+      sourceCounts[channel].count++
+      sourceCounts[channel].totalViews += v.view_count || 0
+    })
+    Object.values(sourceCounts).forEach(s => sourceList.push(s))
+    sourceList.sort((a, b) => b.count - a.count)
+
     return res.status(200).json({
       videos,
       totalVideos: row.total_videos,
       prophecyVideos: row.prophecy_videos,
       channelCount: row.channel_count,
       trendingCount,
+      categoryDistribution: categoryCounts,
+      sources: sourceList.slice(0, 10),
       lastUpdated: row.last_updated
     })
   } catch (error) {

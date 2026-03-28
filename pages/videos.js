@@ -9,6 +9,8 @@ export default function Videos() {
   const router = useRouter()
   const [videos, setVideos] = useState([])
   const [stats, setStats] = useState({ totalVideos: 0, prophecyVideos: 0, channelCount: 0, trendingCount: 0 })
+  const [categoryDistribution, setCategoryDistribution] = useState({})
+  const [sources, setSources] = useState([])
   const [selectedCategory, setSelectedCategory] = useState('All')
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -33,6 +35,8 @@ export default function Videos() {
         channelCount: data.channelCount || 0,
         trendingCount: data.trendingCount || 0
       })
+      setCategoryDistribution(data.categoryDistribution || {})
+      setSources(data.sources || [])
       setLoading(false)
     } catch (err) {
       setError(err.message)
@@ -128,10 +132,48 @@ export default function Videos() {
         <div className={styles.loading}>Loading videos...</div>
       ) : error ? (
         <div className={styles.error}>Error: {error}</div>
-      ) : videos.length === 0 ? (
-        <div className={styles.noResults}>No videos found</div>
       ) : (
-        <div className={styles.videoGrid}>
+        <>
+          <div className={styles.videoSections}>
+            {/* Video Sources Section */}
+            <div className={styles.videoSection}>
+              <h2 className={styles.videoSectionTitle}>📡 Video Sources</h2>
+              <div className={styles.sourceList}>
+                {sources.length > 0 ? (
+                  sources.map((source, idx) => (
+                    <div key={idx} className={styles.sourceItem}>
+                      <span className={styles.sourceName}>{source.name}</span>
+                      <span className={styles.sourceCount}>{source.count} videos</span>
+                    </div>
+                  ))
+                ) : (
+                  <p className={styles.noResults}>No source data</p>
+                )}
+              </div>
+            </div>
+
+            {/* Video Categories Section */}
+            <div className={styles.videoSection}>
+              <h2 className={styles.videoSectionTitle}>📊 Video Categories</h2>
+              <div className={styles.categoryList}>
+                {Object.keys(categoryDistribution).length > 0 ? (
+                  Object.entries(categoryDistribution).map(([cat, count]) => (
+                    <div key={cat} className={styles.categoryItem}>
+                      <span className={styles.categoryName}>{cat}</span>
+                      <span className={styles.categoryCount}>{count}</span>
+                    </div>
+                  ))
+                ) : (
+                  <p className={styles.noResults}>No category data</p>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {videos.length === 0 ? (
+            <div className={styles.noResults}>No videos found</div>
+          ) : (
+            <div className={styles.videoGrid}>
           {videos.map((video, index) => (
             <a
               key={index}
@@ -173,6 +215,8 @@ export default function Videos() {
             </a>
           ))}
         </div>
+          )}
+        </>
       )}
 
       <footer className={styles.footer}>
