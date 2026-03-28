@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { Chart } from 'chart.js'
 import styles from '../styles/Home.module.css'
 
 const VERSION = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA 
@@ -123,7 +124,6 @@ export default function Trends() {
 
   function renderCharts() {
     const trends = computeTrends(articles, period)
-    const { Chart } = require('chart.js')
 
     // Destroy existing charts
     destroyCharts()
