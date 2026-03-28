@@ -39,6 +39,6 @@ export default async function handler(req, res) {
     })
   } catch (error) {
     console.error('Ingest error:', error)
-    return res.status(500).json({ error: 'Failed to ingest data' })
+    return res.status(500).json({ error: 'Failed to ingest data', details: error.message })
   }
 }
