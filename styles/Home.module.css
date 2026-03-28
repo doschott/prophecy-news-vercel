@@ -23,6 +23,16 @@
   font-size: 1rem;
 }
 
+.version {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  background: #1a1a2e;
+  color: #888;
+  border-radius: 1rem;
+  font-size: 0.75rem;
+}
+
 .stats {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));

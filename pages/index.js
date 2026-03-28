@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import styles from '../styles/Home.module.css'
 
+const VERSION = '1.0.0'
+
 export default function Home() {
   const [articles, setArticles] = useState([])
   const [lastUpdated, setLastUpdated] = useState(null)
@@ -63,6 +65,7 @@ export default function Home() {
       <header className={styles.header}>
         <h1 className={styles.title}>� Prophecy News Tracker</h1>
         <p className={styles.subtitle}>Tracking prophetic events worldwide</p>
+        <span className={styles.version}>v{VERSION}</span>
       </header>
 
       <div className={styles.stats}>
