@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { Chart } from 'chart.js'
+import { ThemeSelector } from '../components/ThemeSelector'
 import styles from '../styles/Home.module.css'
 
 const VERSION = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA 
@@ -252,7 +253,10 @@ export default function Trends() {
       <header className={styles.header}>
         <h1 className={styles.title}>📊 Prophecy Trends</h1>
         <p className={styles.subtitle}>Analytics and patterns from prophetic news</p>
-        <span className={styles.version}>v{VERSION}</span>
+        <div className={styles.headerRight}>
+          <ThemeSelector />
+          <span className={styles.version}>v{VERSION}</span>
+        </div>
       </header>
 
       <nav className={styles.tabs}>

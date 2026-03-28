@@ -1,49 +1,71 @@
 /* ============================================
    THEME: CLEAN MODERN
+   Clean blues and slate with emerald accents
    ============================================ */
 [data-theme="clean"] {
-  /* Primary Colors */
-  --accent-primary: #3b82f6;
-  --accent-secondary: #64748b;
-  --accent-tertiary: #8b5cf6;
-  --accent-hot: #ef4444;
-  --accent-green: #10b981;
-  --accent-yellow: #f59e0b;
+  /* Primary Colors - map to cyber variable names */
+  --cyber-cyan: #3b82f6;
+  --cyber-purple: #64748b;
+  --cyber-magenta: #8b5cf6;
+  --cyber-hot: #ef4444;
+  --cyber-green: #10b981;
+  --cyber-yellow: #f59e0b;
   
   /* Background */
-  --bg-primary: #1e293b;
-  --bg-card: #26334d;
-  --bg-hover: rgba(59, 130, 246, 0.08);
-  
-  /* Borders */
-  --border-primary: #334155;
-  --border-light: #475569;
-  --border-accent: var(--accent-primary);
+  --cyber-bg: #0f172a;
+  --cyber-card: #1e293b;
+  --cyber-border: #334155;
+  --cyber-border-light: #475569;
   
   /* Text */
-  --text-primary: #f1f5f9;
-  --text-dim: #94a3b8;
-  --text-muted: #64748b;
+  --cyber-text: #f1f5f9;
+  --cyber-text-dim: #94a3b8;
+  --cyber-text-muted: #64748b;
   
-  /* Glow Effects */
-  --glow-primary: 0 0 8px rgba(59, 130, 246, 0.4);
-  --glow-secondary: 0 0 8px rgba(139, 92, 246, 0.4);
-  --glow-tertiary: 0 0 8px rgba(239, 68, 68, 0.3);
+  /* Glow Effects - subtle clean glows */
+  --glow-cyan: 0 0 8px rgba(59, 130, 246, 0.4);
+  --glow-purple: 0 0 8px rgba(139, 92, 246, 0.4);
+  --glow-magenta: 0 0 8px rgba(139, 92, 246, 0.4);
+  --glow-hot: 0 0 8px rgba(239, 68, 68, 0.3);
+  --glow-green: 0 0 8px rgba(16, 185, 129, 0.4);
   
   /* Gradients */
-  --gradient-accent: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  --gradient-cyber: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
   --gradient-hot: linear-gradient(135deg, #ef4444 0%, #f59e0b 100%);
-  --gradient-bg: linear-gradient(180deg, #1e293b 0%, #26334d 100%);
+  --gradient-bg: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
   
-  /* Shadows */
+  /* Also set generic names for compatibility */
+  --accent-primary: var(--cyber-cyan);
+  --accent-secondary: var(--cyber-purple);
+  --accent-tertiary: var(--cyber-magenta);
+  --accent-hot: var(--cyber-hot);
+  --accent-green: var(--cyber-green);
+  --accent-yellow: var(--cyber-yellow);
+  
+  --bg-primary: var(--cyber-bg);
+  --bg-card: var(--cyber-card);
+  --bg-hover: rgba(59, 130, 246, 0.08);
+  
+  --border-primary: var(--cyber-border);
+  --border-light: var(--cyber-border-light);
+  --border-accent: var(--cyber-cyan);
+  
+  --text-primary: var(--cyber-text);
+  --text-dim: var(--cyber-text-dim);
+  --text-muted: var(--cyber-text-muted);
+  
+  --glow-primary: var(--glow-cyan);
+  --glow-secondary: var(--glow-purple);
+  --glow-tertiary: var(--glow-magenta);
+  
+  --gradient-accent: var(--gradient-cyber);
+  
   --shadow-card: 0 2px 12px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.15);
   --shadow-card-hover: 0 4px 20px rgba(59, 130, 246, 0.15), 0 4px 12px rgba(0, 0, 0, 0.3);
   
-  /* Fonts */
   --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'Courier New', monospace;
   
-  /* Borders Radius */
   --radius-sm: 4px;
   --radius-md: 6px;
   --radius-lg: 10px;

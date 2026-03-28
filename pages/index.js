@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { ThemeSelector } from '../components/ThemeSelector'
 import styles from '../styles/Home.module.css'
 
 const VERSION = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA 
@@ -70,7 +71,10 @@ export default function Home() {
       <header className={styles.header}>
         <h1 className={styles.title}>📖 Prophecy News Tracker</h1>
         <p className={styles.subtitle}>Tracking prophetic events worldwide</p>
-        <span className={styles.version}>v{VERSION}</span>
+        <div className={styles.headerRight}>
+          <ThemeSelector />
+          <span className={styles.version}>v{VERSION}</span>
+        </div>
       </header>
 
       <nav className={styles.tabs}>

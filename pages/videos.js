@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { ThemeSelector } from '../components/ThemeSelector'
 import styles from '../styles/Home.module.css'
 
 const CATEGORIES = ['All', 'Economic', 'Technology', 'War', 'Israel', 'Mark of Beast']
@@ -83,6 +84,9 @@ export default function Videos() {
       <header className={styles.header}>
         <h1 className={styles.title}>📺 Prophecy News Tracker</h1>
         <p className={styles.subtitle}>YouTube videos tracking prophetic events</p>
+        <div className={styles.headerRight}>
+          <ThemeSelector />
+        </div>
       </header>
 
       <nav className={styles.tabs}>

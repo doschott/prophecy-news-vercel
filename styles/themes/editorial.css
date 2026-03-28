@@ -1,49 +1,71 @@
 /* ============================================
    THEME: EDITORIAL / MAGAZINE
+   Elegant gold, burgundy, and cream
    ============================================ */
 [data-theme="editorial"] {
-  /* Primary Colors */
-  --accent-primary: #d4af37;
-  --accent-secondary: #722f37;
-  --accent-tertiary: #8b6914;
-  --accent-hot: #b91c1c;
-  --accent-green: #15803d;
-  --accent-yellow: #ca8a04;
+  /* Primary Colors - map to cyber variable names */
+  --cyber-cyan: #d4af37;
+  --cyber-purple: #722f37;
+  --cyber-magenta: #c9a227;
+  --cyber-hot: #b91c1c;
+  --cyber-green: #15803d;
+  --cyber-yellow: #ca8a04;
   
   /* Background */
-  --bg-primary: #1a1210;
-  --bg-card: #231a16;
-  --bg-hover: rgba(212, 175, 55, 0.06);
-  
-  /* Borders */
-  --border-primary: #3d2e24;
-  --border-light: #5a4535;
-  --border-accent: var(--accent-primary);
+  --cyber-bg: #1a1510;
+  --cyber-card: #231a16;
+  --cyber-border: #3d2e24;
+  --cyber-border-light: #5a4535;
   
   /* Text */
-  --text-primary: #f5f0e1;
-  --text-dim: #c4b89e;
-  --text-muted: #8a7a66;
+  --cyber-text: #f5f0e1;
+  --cyber-text-dim: #c4b89e;
+  --cyber-text-muted: #8a7a66;
   
-  /* Glow Effects */
-  --glow-primary: 0 0 8px rgba(212, 175, 55, 0.3);
-  --glow-secondary: 0 0 8px rgba(114, 47, 55, 0.4);
-  --glow-tertiary: 0 0 6px rgba(212, 175, 55, 0.2);
+  /* Glow Effects - elegant subtle glows */
+  --glow-cyan: 0 0 8px rgba(212, 175, 55, 0.3);
+  --glow-purple: 0 0 8px rgba(114, 47, 55, 0.4);
+  --glow-magenta: 0 0 6px rgba(201, 162, 39, 0.2);
+  --glow-hot: 0 0 8px rgba(185, 28, 28, 0.4);
+  --glow-green: 0 0 8px rgba(21, 128, 61, 0.4);
   
   /* Gradients */
-  --gradient-accent: linear-gradient(135deg, #d4af37 0%, #722f37 100%);
+  --gradient-cyber: linear-gradient(135deg, #d4af37 0%, #722f37 100%);
   --gradient-hot: linear-gradient(135deg, #b91c1c 0%, #d4af37 100%);
-  --gradient-bg: linear-gradient(180deg, #1a1210 0%, #231a16 100%);
+  --gradient-bg: linear-gradient(180deg, #1a1510 0%, #231a16 100%);
   
-  /* Shadows */
+  /* Also set generic names for compatibility */
+  --accent-primary: var(--cyber-cyan);
+  --accent-secondary: var(--cyber-purple);
+  --accent-tertiary: var(--cyber-magenta);
+  --accent-hot: var(--cyber-hot);
+  --accent-green: var(--cyber-green);
+  --accent-yellow: var(--cyber-yellow);
+  
+  --bg-primary: var(--cyber-bg);
+  --bg-card: var(--cyber-card);
+  --bg-hover: rgba(212, 175, 55, 0.06);
+  
+  --border-primary: var(--cyber-border);
+  --border-light: var(--cyber-border-light);
+  --border-accent: var(--cyber-cyan);
+  
+  --text-primary: var(--cyber-text);
+  --text-dim: var(--cyber-text-dim);
+  --text-muted: var(--cyber-text-muted);
+  
+  --glow-primary: var(--glow-cyan);
+  --glow-secondary: var(--glow-purple);
+  --glow-tertiary: var(--glow-magenta);
+  
+  --gradient-accent: var(--gradient-cyber);
+  
   --shadow-card: 0 2px 15px rgba(0, 0, 0, 0.35), 0 1px 4px rgba(0, 0, 0, 0.2);
   --shadow-card-hover: 0 4px 20px rgba(212, 175, 55, 0.1), 0 4px 15px rgba(0, 0, 0, 0.4);
   
-  /* Fonts */
   --font-family: Georgia, 'Times New Roman', serif;
   --font-mono: 'Courier New', monospace;
   
-  /* Borders Radius */
   --radius-sm: 2px;
   --radius-md: 4px;
   --radius-lg: 6px;
