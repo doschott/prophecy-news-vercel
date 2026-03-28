@@ -1,7 +1,10 @@
 const fs = require('fs')
 const path = require('path')
 
-const DATA_FILE = path.join(process.cwd(), 'data', 'data.json')
+// Use /tmp for writable storage in serverless (persists during cold start, not across instances)
+const DATA_FILE = process.env.NEXT_PUBLIC_VERCEL_ENV === 'production' 
+  ? '/tmp/data.json' 
+  : path.join(process.cwd(), 'data', 'data.json')
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
