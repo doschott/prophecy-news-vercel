@@ -1,8 +1,11 @@
-const fs = require('fs')
-const path = require('path')
+import postgres from 'postgres'
 
-// Use /tmp for writable storage in serverless
-const DATA_FILE = '/tmp/data.json'
+const sql = postgres(process.env.DATABASE_URL, {
+  max: 1,
+  ssl: 'require',
+  idle_timeout: 20,
+  connect_timeout: 10,
+})
 
 // Default sample data
 const DEFAULT_DATA = {
@@ -43,20 +46,32 @@ const DEFAULT_DATA = {
   criticalCount: 2
 }
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
   if (req.method !== 'GET') {
     return res.status(405).json({ error: 'Method not allowed' })
   }
 
   try {
-    // Try to read data file
-    if (fs.existsSync(DATA_FILE)) {
-      const data = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'))
-      return res.status(200).json(data)
+    const rows = await sql`
+      SELECT articles, total_articles, critical_count, last_updated
+      FROM prophecy_data
+      ORDER BY created_at DESC
+      LIMIT 1
+    `
+
+    if (rows.length === 0) {
+      return res.status(200).json(DEFAULT_DATA)
     }
 
-    // Return default sample data if no file exists
-    return res.status(200).json(DEFAULT_DATA)
+    const row = rows[0]
+    const data = {
+      articles: row.articles,
+      lastUpdated: row.last_updated,
+      totalArticles: row.total_articles,
+      criticalCount: row.critical_count
+    }
+
+    return res.status(200).json(data)
   } catch (error) {
     console.error('Data read error:', error)
     return res.status(500).json({ error: 'Failed to read data' })
