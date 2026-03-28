@@ -11,10 +11,10 @@ Make theme switching work properly with unique, polished themes. Keep the cyberp
 ## Tasks
 
 ### 1. Theme Architecture
-- [ ] Use data-theme attribute approach (data-theme="cyber", data-theme="bold", etc.)
-- [ ] Each theme file sets CSS variables that override cyber defaults
-- [ ] Variables MUST use same names as cyber theme: --cyber-cyan, --cyber-purple, --cyber-bg, etc.
-- [ ] Each theme has its own unique accent colors that map to the cyber variable names
+- [x] Use data-theme attribute approach (data-theme="cyber", data-theme="bold", etc.)
+- [x] Each theme file sets CSS variables that override cyber defaults
+- [x] Variables MUST use same names as cyber theme: --cyber-cyan, --cyber-purple, --cyber-bg, etc.
+- [x] Each theme has its own unique accent colors that map to the cyber variable names
 
 ### 2. Theme Definitions (each must be visually stunning)
 
@@ -39,10 +39,10 @@ Make theme switching work properly with unique, polished themes. Keep the cyberp
 - Elegant glow, serif typography feel
 
 ### 3. Re-enable Theme Switcher
-- [ ] Add ThemeSelector component to pages/_app.js or each page
-- [ ] Read cookie on page load, apply theme
-- [ ] On selection, update cookie AND apply theme immediately
-- [ ] Cookie: `theme=cyber|bold|clean|editorial` max-age=365 days
+- [x] Add ThemeSelector component to pages/_app.js or each page
+- [x] Read cookie on page load, apply theme
+- [x] On selection, update cookie AND apply theme immediately
+- [x] Cookie: `theme=cyber|bold|clean|editorial` max-age=365 days
 
 ### 4. Files to Modify
 - `pages/_app.js` - Add theme provider with cookie handling
