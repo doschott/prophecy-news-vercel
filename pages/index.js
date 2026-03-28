@@ -68,7 +68,7 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <header className={styles.header}>
-        <h1 className={styles.title}>� Prophecy News Tracker</h1>
+        <h1 className={styles.title}>📖 Prophecy News Tracker</h1>
         <p className={styles.subtitle}>Tracking prophetic events worldwide</p>
         <span className={styles.version}>v{VERSION}</span>
       </header>
