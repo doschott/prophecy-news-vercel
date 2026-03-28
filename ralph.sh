@@ -6,7 +6,7 @@ set -e
 
 PROJECT_DIR="/home/dosubuntu/clawd/projects/prophecy-news-vercel"
 PROMPT_FILE="$PROJECT_DIR/prompts/implement.md"
-PLAN_FILE="$PROJECT_DIR/specs/implementation-plans/initial-setup.md"
+PLAN_FILE="$PROJECT_DIR/specs/implementation-plans/prophecy-trends-page.md"
 
 echo "🚀 Starting Ralph Loop for Prophecy News Vercel Dashboard"
 echo "=========================================================="

@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 import styles from '../styles/Home.module.css'
 
 const VERSION = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA 
@@ -6,6 +8,7 @@ const VERSION = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA
   : 'dev'
 
 export default function Home() {
+  const router = useRouter()
   const [articles, setArticles] = useState([])
   const [lastUpdated, setLastUpdated] = useState(null)
   const [totalArticles, setTotalArticles] = useState(0)
@@ -69,6 +72,15 @@ export default function Home() {
         <p className={styles.subtitle}>Tracking prophetic events worldwide</p>
         <span className={styles.version}>v{VERSION}</span>
       </header>
+
+      <nav className={styles.tabs}>
+        <Link href="/" className={`${styles.tab} ${router.pathname === '/' ? styles.tabActive : ''}`}>
+          📰 Dashboard
+        </Link>
+        <Link href="/trends" className={`${styles.tab} ${router.pathname === '/trends' ? styles.tabActive : ''}`}>
+          📊 Trends
+        </Link>
+      </nav>
 
       <div className={styles.stats}>
         <div className={styles.statCard}>

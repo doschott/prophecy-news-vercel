@@ -5,6 +5,33 @@
   margin: 0 auto;
 }
 
+.tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #1a1a2e;
+  padding-bottom: 0.5rem;
+}
+
+.tab {
+  padding: 0.5rem 1rem;
+  color: #666;
+  text-decoration: none;
+  border-radius: 6px 6px 0 0;
+  transition: all 0.2s;
+}
+
+.tab:hover {
+  color: #f0f0f0;
+  background: #12121a;
+}
+
+.tabActive {
+  color: #f0f0f0;
+  background: #12121a;
+  border-bottom: 2px solid #6366f1;
+}
+
 .header {
   text-align: center;
   margin-bottom: 2rem;
@@ -207,6 +234,64 @@
   border-top: 1px solid #1a1a2e;
   color: #555;
   font-size: 0.8rem;
+}
+
+.periodSelector {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.periodLabel {
+  color: #888;
+  font-size: 0.9rem;
+  margin-right: 0.5rem;
+}
+
+.periodBtn {
+  padding: 0.5rem 1rem;
+  background: #12121a;
+  border: 1px solid #1a1a2e;
+  border-radius: 6px;
+  color: #888;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.periodBtn:hover {
+  border-color: #333;
+  color: #f0f0f0;
+}
+
+.periodBtnActive {
+  background: #6366f1;
+  border-color: #6366f1;
+  color: #fff;
+}
+
+.chartSection {
+  background: #12121a;
+  border: 1px solid #1a1a2e;
+  border-radius: 8px;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.chartTitle {
+  font-size: 1rem;
+  color: #f0f0f0;
+  margin-bottom: 1rem;
+}
+
+.chartContainer {
+  height: 250px;
+  position: relative;
+}
+
+.chartGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
 }
 
 @media (max-width: 640px) {

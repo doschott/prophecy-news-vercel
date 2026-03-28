@@ -1,65 +1,55 @@
 # Implementation Prompt
 
-You are building a Vercel-hosted React dashboard for the Prophecy News Tracker project.
+You are adding a Prophecy Trends page to the Vercel-hosted React dashboard for the Prophecy News Tracker project.
 
 ## Project Location
 `/home/dosubuntu/clawd/projects/prophecy-news-vercel/`
 
 ## Current Task
 Read the active implementation plan at:
-`/home/dosubuntu/clawd/projects/prophecy-news-vercel/specs/implementation-plans/initial-setup.md`
+`/home/dosubuntu/clawd/projects/prophecy-news-vercel/specs/implementation-plans/prophecy-trends-page.md`
 
-Work through the unchecked tasks. Mark each checkbox as complete `[x]` when done. Create all necessary files.
+Work through the unchecked tasks. Mark each checkbox as complete `[x]` when done. Create/modify all necessary files.
 
-## Data Format
-The local prophecy-news-tracker produces articles with this structure:
+## Existing Data Structure
+The `/api/data` endpoint returns articles with this structure:
 ```json
 {
   "articles": [
     {
+      "id": 1,
       "title": "Article Title",
-      "url": "https://example.com/article",
+      "content": "Full content...",
+      "summary": "Brief summary",
       "source": "Source Name",
-      "published": "2026-03-27T10:00:00Z",
-      "summary": "Brief summary of the article...",
-      "score": 85,
-      "critical": true,
-      "categories": ["prophecy", "middle-east"]
+      "source_url": "https://example.com",
+      "author": "Author Name",
+      "published_at": "2026-03-27T10:00:00",
+      "collected_at": "2026-03-27T12:00:00",
+      "image_url": "https://...",
+      "relevance_score": 0.85,
+      "is_prophecy_related": true,
+      "trust_score": 0.75,
+      "trust_level": "reliable",
+      "critical": true
     }
   ],
   "lastUpdated": "2026-03-27T10:00:00Z",
-  "totalArticles": 100,
-  "criticalCount": 25
+  "totalArticles": 68,
+  "criticalCount": 21
 }
 ```
 
-## API Endpoints
-
-### POST /api/ingest
-Receives article data from local machine. Writes to `data/data.json`.
-
-### GET /api/data
-Returns current articles from `data/data.json`.
-
 ## Styling
-Use CSS Modules (`.module.css` files). Dark theme with prophetic news aesthetic. Simple, clean, readable.
+- Use CSS Modules (`.module.css` files)
+- Dark theme matching existing dashboard
+- Chart colors: use readable colors that work on dark backgrounds
+- Keep consistent with existing card/grid styles in `styles/Home.module.css`
 
 ## Important
 - Check each task box as complete when done
 - When all tasks are complete, output `<promise>COMPLETE</promise>`
 - Use Next.js pages router (not app router)
-- Keep code simple and functional
-- Do NOT install dependencies or run npm install - just create the files
-
-## Files to Create
-- package.json
-- vercel.json
-- next.config.js
-- pages/_app.js
-- pages/index.js
-- api/ingest.js
-- api/data.js
-- data/data.json (with sample data)
-- styles/Home.module.css
-- .gitignore
-- README.md
+- Add Chart.js via CDN script tag in the page
+- Compute trends client-side from the articles data already fetched from `/api/data`
+- Do NOT modify the API endpoints - just use the existing `/api/data` endpoint
