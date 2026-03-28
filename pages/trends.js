@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { Chart } from 'chart.js'
 import styles from '../styles/Home.module.css'
 
@@ -7,6 +9,7 @@ const VERSION = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA
   : 'dev'
 
 export default function Trends() {
+  const router = useRouter()
   const [articles, setArticles] = useState([])
   const [totalArticles, setTotalArticles] = useState(0)
   const [criticalCount, setCriticalCount] = useState(0)
@@ -251,6 +254,18 @@ export default function Trends() {
         <p className={styles.subtitle}>Analytics and patterns from prophetic news</p>
         <span className={styles.version}>v{VERSION}</span>
       </header>
+
+      <nav className={styles.tabs}>
+        <Link href="/" className={`${styles.tab} ${router.pathname === '/' ? styles.tabActive : ''}`}>
+          📰 Dashboard
+        </Link>
+        <Link href="/trends" className={`${styles.tab} ${router.pathname === '/trends' ? styles.tabActive : ''}`}>
+          📊 Trends
+        </Link>
+        <Link href="/videos" className={`${styles.tab} ${router.pathname === '/videos' ? styles.tabActive : ''}`}>
+          📺 Videos
+        </Link>
+      </nav>
 
       <div className={styles.controls}>
         <div className={styles.periodSelector}>
