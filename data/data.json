@@ -1,0 +1,57 @@
+{
+  "articles": [
+    {
+      "title": "Major Earthquake Strikes Middle East Region",
+      "url": "https://example.com/earthquake",
+      "source": "Reuters",
+      "published": "2026-03-27T10:00:00Z",
+      "summary": "A significant earthquake has been reported in a key Middle Eastern location, raising concerns among prophetic watchers.",
+      "score": 85,
+      "critical": true,
+      "categories": ["natural-events", "middle-east"]
+    },
+    {
+      "title": "Global Currency Reset Discussions Continue",
+      "url": "https://example.com/currency",
+      "source": "Financial Times",
+      "published": "2026-03-27T09:00:00Z",
+      "summary": "World economic leaders discuss potential changes to global monetary systems.",
+      "score": 72,
+      "critical": false,
+      "categories": ["economy", "global"]
+    },
+    {
+      "title": "Tensions Rise in Eastern Europe",
+      "url": "https://example.com/ukraine",
+      "source": "BBC News",
+      "published": "2026-03-27T08:00:00Z",
+      "summary": "Ongoing geopolitical tensions show no signs of resolution as diplomatic efforts stall.",
+      "score": 78,
+      "critical": true,
+      "categories": ["geopolitics", "europe"]
+    },
+    {
+      "title": "Solar Activity Reaches New High",
+      "url": "https://example.com/solar",
+      "source": "NASA",
+      "published": "2026-03-26T15:00:00Z",
+      "summary": "Sunspot activity has increased significantly, with several coronal mass ejections detected.",
+      "score": 68,
+      "critical": false,
+      "categories": ["space", "solar"]
+    },
+    {
+      "title": "Famine Warning Issued for East Africa",
+      "url": "https://example.com/famine",
+      "source": "UN News",
+      "published": "2026-03-26T12:00:00Z",
+      "summary": "United Nations agencies warn of impending food crisis affecting millions.",
+      "score": 82,
+      "critical": true,
+      "categories": ["crisis", "africa"]
+    }
+  ],
+  "lastUpdated": "2026-03-27T10:00:00Z",
+  "totalArticles": 5,
+  "criticalCount": 2
+}

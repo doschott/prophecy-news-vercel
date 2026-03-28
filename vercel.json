@@ -1,0 +1,23 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/**/*.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "package.json",
+      "use": "@vercel/next"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/ingest",
+      "dest": "/api/ingest.js"
+    },
+    {
+      "src": "/api/data",
+      "dest": "/api/data.js"
+    }
+  ]
+}

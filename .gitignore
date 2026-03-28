@@ -1,0 +1,46 @@
+# Dependencies
+node_modules/
+
+# Next.js build output
+.next/
+out/
+
+# Production build
+build/
+
+# Vercel
+.vercel/
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local env files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Vercel CLI adapters
+.vercel/
+
+# Data files (keep sample, ignore runtime data)
+# data/data.json is tracked with sample data
+# Uncomment below to ignore runtime data:
+# data/*.json
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
