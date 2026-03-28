@@ -90,6 +90,9 @@ export default function Home() {
         <Link href="/videos" className={`${styles.tab} ${router.pathname === '/videos' ? styles.tabActive : ''}`}>
           📺 Videos
         </Link>
+        <Link href="/theology" className={`${styles.tab} ${router.pathname === '/theology' ? styles.tabActive : ''}`}>
+          📖 Theology
+        </Link>
       </nav>
 
       <div className={styles.stats}>

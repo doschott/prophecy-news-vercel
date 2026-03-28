@@ -35,6 +35,17 @@ async function initVideosTable(client) {
   `)
 }
 
+async function initTheologiansTable(client) {
+  await client.query(`
+    CREATE TABLE IF NOT EXISTS prophecy_theologians (
+      id SERIAL PRIMARY KEY,
+      theologians JSONB NOT NULL,
+      last_updated TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `)
+}
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' })
@@ -43,7 +54,7 @@ export default async function handler(req, res) {
   const client = await pool.connect()
   
   try {
-    const { articles, totalArticles, criticalCount, videos, totalVideos, prophecyVideos, channelCount } = req.body
+    const { articles, totalArticles, criticalCount, videos, totalVideos, prophecyVideos, channelCount, theologians } = req.body
 
     // Handle articles if provided
     if (articles !== undefined) {
@@ -76,6 +87,23 @@ export default async function handler(req, res) {
          VALUES ($1, $2, $3, $4, NOW())
          RETURNING *`,
         [JSON.stringify(videos), totalVideos || videos.length, prophecyVideos || 0, channelCount || 0]
+      )
+    }
+
+    // Handle theologians if provided
+    if (theologians !== undefined) {
+      if (!Array.isArray(theologians)) {
+        return res.status(400).json({ error: 'theologians must be an array' })
+      }
+
+      await initTheologiansTable(client)
+      await client.query('DELETE FROM prophecy_theologians')
+      
+      await client.query(
+        `INSERT INTO prophecy_theologians (theologians, last_updated)
+         VALUES ($1, NOW())
+         RETURNING *`,
+        [JSON.stringify(theologians)]
       )
     }
 
