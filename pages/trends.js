@@ -251,12 +251,15 @@ export default function Trends() {
   return (
     <div className={styles.container}>
       <header className={styles.header}>
+        <div className={styles.headerTop}>
+          <div className={styles.themeSelectorWrapper}>
+            <span className={styles.themeLabel}>Theme</span>
+            <ThemeSelector />
+          </div>
+        </div>
         <h1 className={styles.title}>📊 Prophecy Trends</h1>
         <p className={styles.subtitle}>Analytics and patterns from prophetic news</p>
-        <div className={styles.headerRight}>
-          <ThemeSelector />
-          <span className={styles.version}>v{VERSION}</span>
-        </div>
+        <span className={styles.version}>v{VERSION}</span>
       </header>
 
       <nav className={styles.tabs}>

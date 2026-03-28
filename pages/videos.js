@@ -82,11 +82,14 @@ export default function Videos() {
   return (
     <div className={styles.container}>
       <header className={styles.header}>
+        <div className={styles.headerTop}>
+          <div className={styles.themeSelectorWrapper}>
+            <span className={styles.themeLabel}>Theme</span>
+            <ThemeSelector />
+          </div>
+        </div>
         <h1 className={styles.title}>📺 Prophecy News Tracker</h1>
         <p className={styles.subtitle}>YouTube videos tracking prophetic events</p>
-        <div className={styles.headerRight}>
-          <ThemeSelector />
-        </div>
       </header>
 
       <nav className={styles.tabs}>

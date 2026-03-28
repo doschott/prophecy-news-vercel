@@ -69,12 +69,15 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <header className={styles.header}>
+        <div className={styles.headerTop}>
+          <div className={styles.themeSelectorWrapper}>
+            <span className={styles.themeLabel}>Theme</span>
+            <ThemeSelector />
+          </div>
+        </div>
         <h1 className={styles.title}>📖 Prophecy News Tracker</h1>
         <p className={styles.subtitle}>Tracking prophetic events worldwide</p>
-        <div className={styles.headerRight}>
-          <ThemeSelector />
-          <span className={styles.version}>v{VERSION}</span>
-        </div>
+        <span className={styles.version}>v{VERSION}</span>
       </header>
 
       <nav className={styles.tabs}>
