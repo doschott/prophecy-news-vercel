@@ -8,28 +8,18 @@ const pool = new Pool({
   connectionTimeoutMillis: 10000,
 })
 
-// Initialize table
-async function initTable() {
-  const client = await pool.connect()
-  try {
-    await client.query(`
-      CREATE TABLE IF NOT EXISTS prophecy_data (
-        id SERIAL PRIMARY KEY,
-        articles JSONB NOT NULL,
-        total_articles INTEGER NOT NULL,
-        critical_count INTEGER NOT NULL,
-        last_updated TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-        created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
-      )
-    `)
-  } catch (error) {
-    console.error('Init table error:', error)
-  } finally {
-    client.release()
-  }
+async function initTable(client) {
+  await client.query(`
+    CREATE TABLE IF NOT EXISTS prophecy_data (
+      id SERIAL PRIMARY KEY,
+      articles JSONB NOT NULL,
+      total_articles INTEGER NOT NULL,
+      critical_count INTEGER NOT NULL,
+      last_updated TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `)
 }
-
-initTable()
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -45,6 +35,9 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'articles must be an array' })
     }
 
+    // Ensure table exists
+    await initTable(client)
+    
     // Clear old data and insert new
     await client.query('DELETE FROM prophecy_data')
     

@@ -8,6 +8,19 @@ const pool = new Pool({
   connectionTimeoutMillis: 10000,
 })
 
+async function initTable(client) {
+  await client.query(`
+    CREATE TABLE IF NOT EXISTS prophecy_data (
+      id SERIAL PRIMARY KEY,
+      articles JSONB NOT NULL,
+      total_articles INTEGER NOT NULL,
+      critical_count INTEGER NOT NULL,
+      last_updated TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `)
+}
+
 // Default sample data
 const DEFAULT_DATA = {
   articles: [
@@ -55,6 +68,9 @@ export default async function handler(req, res) {
   const client = await pool.connect()
   
   try {
+    // Ensure table exists
+    await initTable(client)
+    
     const result = await client.query(
       `SELECT articles, total_articles, critical_count, last_updated
        FROM prophecy_data
