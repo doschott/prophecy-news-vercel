@@ -22,6 +22,10 @@
     {
       "src": "/api/videos",
       "dest": "/api/videos.js"
+    },
+    {
+      "src": "/api/theologians",
+      "dest": "/api/theologians.js"
     }
   ]
 }
