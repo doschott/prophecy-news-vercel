@@ -109,7 +109,7 @@ export default function Videos() {
           <span className={styles.statLabel}>Total Videos</span>
         </div>
         <div className={styles.statCard}>
-          <span className={styles.statValue} style={{ color: '#22c55e' }}>{stats.prophecyVideos}</span>
+          <span className={styles.statValue} style={{ color: 'var(--cyber-green)' }}>{stats.prophecyVideos}</span>
           <span className={styles.statLabel}>Prophecy Related</span>
         </div>
         <div className={styles.statCard}>
@@ -117,7 +117,7 @@ export default function Videos() {
           <span className={styles.statLabel}>Channels</span>
         </div>
         <div className={styles.statCard}>
-          <span className={styles.statValue} style={{ color: '#f97316' }}>{stats.trendingCount}</span>
+          <span className={styles.statValue} style={{ color: 'var(--cyber-hot)' }}>{stats.trendingCount}</span>
           <span className={styles.statLabel}>Trending</span>
         </div>
       </div>

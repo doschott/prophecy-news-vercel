@@ -161,10 +161,10 @@ export default function Trends() {
         scales: {
           y: { 
             beginAtZero: true,
-            grid: { color: '#1a1a2e' }
+            grid: { color: 'var(--cyber-border)' }
           },
           x: { 
-            grid: { color: '#1a1a2e' }
+            grid: { color: 'var(--cyber-border)' }
           }
         }
       }
@@ -191,7 +191,7 @@ export default function Trends() {
         plugins: {
           legend: {
             position: 'right',
-            labels: { color: '#888', boxWidth: 12, padding: 8 }
+            labels: { color: 'var(--cyber-text-dim)', boxWidth: 12, padding: 8 }
           }
         }
       }
@@ -221,7 +221,7 @@ export default function Trends() {
         scales: {
           y: { 
             beginAtZero: true,
-            grid: { color: '#1a1a2e' }
+            grid: { color: 'var(--cyber-border)' }
           },
           x: { 
             grid: { display: false }
@@ -300,7 +300,7 @@ export default function Trends() {
               <span className={styles.statLabel}>Articles ({period}d)</span>
             </div>
             <div className={styles.statCard}>
-              <span className={styles.statValue} style={{ color: '#ef4444' }}>{trends.highRelevanceCount}</span>
+              <span className={styles.statValue} style={{ color: 'var(--cyber-hot)' }}>{trends.highRelevanceCount}</span>
               <span className={styles.statLabel}>High Relevance</span>
             </div>
             <div className={styles.statCard}>

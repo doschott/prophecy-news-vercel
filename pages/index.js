@@ -97,7 +97,7 @@ export default function Home() {
           <span className={styles.statLabel}>Total Articles</span>
         </div>
         <div className={styles.statCard}>
-          <span className={styles.statValue} style={{ color: '#ef4444' }}>{criticalCount}</span>
+          <span className={styles.statValue} style={{ color: 'var(--cyber-hot)' }}>{criticalCount}</span>
           <span className={styles.statLabel}>Critical Alerts</span>
         </div>
         <div className={styles.statCard}>
