@@ -2,60 +2,6 @@
    CYBERPUNK DESIGN SYSTEM - Prophecy News
    ============================================ */
 
-:root {
-  /* Cyberpunk Colors */
-  --cyber-cyan: #00f0ff;
-  --cyber-purple: #bf00ff;
-  --cyber-magenta: #ff00ff;
-  --cyber-hot: #ff0066;
-  --cyber-green: #00ff88;
-  --cyber-yellow: #ffcc00;
-  
-  /* Dark Theme */
-  --cyber-bg: #0a0a12;
-  --cyber-card: #0d0d1a;
-  --cyber-border: #1a1a2e;
-  --cyber-border-light: #2a2a3e;
-  
-  /* Text */
-  --cyber-text: #e0e0ff;
-  --cyber-text-dim: #8888aa;
-  --cyber-text-muted: #555577;
-  
-  /* Glow Effects */
-  --glow-cyan: 0 0 10px #00f0ff, 0 0 20px #00f0ff, 0 0 30px #00f0ff;
-  --glow-purple: 0 0 10px #bf00ff, 0 0 20px #bf00ff, 0 0 30px #bf00ff;
-  --glow-magenta: 0 0 10px #ff00ff, 0 0 20px #ff00ff;
-  --glow-hot: 0 0 10px #ff0066, 0 0 20px #ff0066;
-  --glow-green: 0 0 10px #00ff88, 0 0 20px #00ff88;
-  
-  /* Gradients */
-  --gradient-cyber: linear-gradient(135deg, #00f0ff 0%, #bf00ff 50%, #ff00ff 100%);
-  --gradient-hot: linear-gradient(135deg, #ff0066 0%, #bf00ff 100%);
-  --gradient-bg: linear-gradient(180deg, #0a0a12 0%, #0d0d1a 100%);
-}
-
-/* Animated Border Keyframes */
-@keyframes borderGlow {
-  0%, 100% { border-color: var(--cyber-cyan); box-shadow: 0 0 5px var(--cyber-cyan), inset 0 0 5px rgba(0, 240, 255, 0.1); }
-  50% { border-color: var(--cyber-purple); box-shadow: 0 0 10px var(--cyber-purple), inset 0 0 10px rgba(191, 0, 255, 0.1); }
-}
-
-@keyframes textGlow {
-  0%, 100% { text-shadow: 0 0 10px var(--cyber-cyan), 0 0 20px var(--cyber-cyan); }
-  50% { text-shadow: 0 0 15px var(--cyber-purple), 0 0 30px var(--cyber-purple); }
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.7; }
-}
-
-@keyframes scanline {
-  0% { transform: translateY(-100%); }
-  100% { transform: translateY(100vh); }
-}
-
 /* Background Grid Pattern */
 .container {
   min-height: 100vh;
