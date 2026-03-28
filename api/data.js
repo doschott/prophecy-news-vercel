@@ -1,10 +1,11 @@
-import postgres from 'postgres'
+import { Pool } from 'pg'
 
-const sql = postgres(process.env.DATABASE_URL, {
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: { rejectUnauthorized: false },
   max: 1,
-  ssl: 'require',
-  idle_timeout: 20,
-  connect_timeout: 10,
+  idleTimeoutMillis: 30000,
+  connectionTimeoutMillis: 10000,
 })
 
 // Default sample data
@@ -51,19 +52,21 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' })
   }
 
+  const client = await pool.connect()
+  
   try {
-    const rows = await sql`
-      SELECT articles, total_articles, critical_count, last_updated
-      FROM prophecy_data
-      ORDER BY created_at DESC
-      LIMIT 1
-    `
+    const result = await client.query(
+      `SELECT articles, total_articles, critical_count, last_updated
+       FROM prophecy_data
+       ORDER BY created_at DESC
+       LIMIT 1`
+    )
 
-    if (rows.length === 0) {
+    if (result.rows.length === 0) {
       return res.status(200).json(DEFAULT_DATA)
     }
 
-    const row = rows[0]
+    const row = result.rows[0]
     const data = {
       articles: row.articles,
       lastUpdated: row.last_updated,
@@ -75,5 +78,7 @@ export default async function handler(req, res) {
   } catch (error) {
     console.error('Data read error:', error)
     return res.status(500).json({ error: 'Failed to read data' })
+  } finally {
+    client.release()
   }
 }

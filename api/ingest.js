@@ -1,16 +1,18 @@
-import postgres from 'postgres'
+import { Pool } from 'pg'
 
-const sql = postgres(process.env.DATABASE_URL, {
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: { rejectUnauthorized: false },
   max: 1,
-  ssl: 'require',
-  idle_timeout: 20,
-  connect_timeout: 10,
+  idleTimeoutMillis: 30000,
+  connectionTimeoutMillis: 10000,
 })
 
 // Initialize table
 async function initTable() {
+  const client = await pool.connect()
   try {
-    await sql`
+    await client.query(`
       CREATE TABLE IF NOT EXISTS prophecy_data (
         id SERIAL PRIMARY KEY,
         articles JSONB NOT NULL,
@@ -19,9 +21,11 @@ async function initTable() {
         last_updated TIMESTAMPTZ NOT NULL DEFAULT NOW(),
         created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
       )
-    `
+    `)
   } catch (error) {
     console.error('Init table error:', error)
+  } finally {
+    client.release()
   }
 }
 
@@ -32,6 +36,8 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' })
   }
 
+  const client = await pool.connect()
+  
   try {
     const { articles, totalArticles, criticalCount } = req.body
 
@@ -40,13 +46,14 @@ export default async function handler(req, res) {
     }
 
     // Clear old data and insert new
-    await sql`DELETE FROM prophecy_data`
+    await client.query('DELETE FROM prophecy_data')
     
-    const rows = await sql`
-      INSERT INTO prophecy_data (articles, total_articles, critical_count, last_updated)
-      VALUES (${JSON.stringify(articles)}, ${totalArticles || articles.length}, ${criticalCount || 0}, NOW())
-      RETURNING *
-    `
+    const result = await client.query(
+      `INSERT INTO prophecy_data (articles, total_articles, critical_count, last_updated)
+       VALUES ($1, $2, $3, NOW())
+       RETURNING *`,
+      [JSON.stringify(articles), totalArticles || articles.length, criticalCount || 0]
+    )
 
     return res.status(200).json({
       success: true,
@@ -56,5 +63,7 @@ export default async function handler(req, res) {
   } catch (error) {
     console.error('Ingest error:', error)
     return res.status(500).json({ error: 'Failed to ingest data', details: error.message })
+  } finally {
+    client.release()
   }
 }
