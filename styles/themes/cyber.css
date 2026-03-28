@@ -1,0 +1,50 @@
+/* ============================================
+   THEME: CYBER (Futuristic)
+   ============================================ */
+[data-theme="cyber"] {
+  /* Primary Colors */
+  --accent-primary: #00f0ff;
+  --accent-secondary: #bf00ff;
+  --accent-tertiary: #ff00ff;
+  --accent-hot: #ff0066;
+  --accent-green: #00ff88;
+  --accent-yellow: #ffcc00;
+  
+  /* Background */
+  --bg-primary: #0a0a12;
+  --bg-card: #0d0d1a;
+  --bg-hover: rgba(0, 240, 255, 0.05);
+  
+  /* Borders */
+  --border-primary: #1a1a2e;
+  --border-light: #2a2a3e;
+  --border-accent: var(--accent-primary);
+  
+  /* Text */
+  --text-primary: #e0e0ff;
+  --text-dim: #8888aa;
+  --text-muted: #555577;
+  
+  /* Glow Effects */
+  --glow-primary: 0 0 10px #00f0ff, 0 0 20px #00f0ff, 0 0 30px #00f0ff;
+  --glow-secondary: 0 0 10px #bf00ff, 0 0 20px #bf00ff, 0 0 30px #bf00ff;
+  --glow-tertiary: 0 0 10px #ff00ff, 0 0 20px #ff00ff;
+  
+  /* Gradients */
+  --gradient-accent: linear-gradient(135deg, #00f0ff 0%, #bf00ff 50%, #ff00ff 100%);
+  --gradient-hot: linear-gradient(135deg, #ff0066 0%, #bf00ff 100%);
+  --gradient-bg: linear-gradient(180deg, #0a0a12 0%, #0d0d1a 100%);
+  
+  /* Shadows */
+  --shadow-card: 0 0 20px rgba(0, 240, 255, 0.15), 0 5px 20px rgba(0, 0, 0, 0.3);
+  --shadow-card-hover: 0 0 20px rgba(0, 240, 255, 0.2), 0 5px 20px rgba(0, 0, 0, 0.3);
+  
+  /* Fonts */
+  --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Courier New', monospace;
+  
+  /* Borders Radius */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+}
