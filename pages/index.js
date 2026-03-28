@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react'
 import styles from '../styles/Home.module.css'
 
-const VERSION = '1.0.0'
+const VERSION = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA 
+  ? process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA.substring(0, 7) 
+  : 'dev'
 
 export default function Home() {
   const [articles, setArticles] = useState([])
