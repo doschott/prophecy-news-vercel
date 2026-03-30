@@ -71,7 +71,7 @@ export default function Theology() {
           </div>
           <h1 className={styles.title}>📖 EndTimesHub.com</h1>
           <p className={styles.subtitle}>Tracking prophetic events worldwide</p>
-          <span className={styles.version}>v{VERSION}</span>
+          
         </header>
         <nav className={styles.tabs}>
           <Link href="/" className={`${styles.tab} ${router.pathname === '/' ? styles.tabActive : ''}`}>📰 Dashboard</Link>
@@ -98,7 +98,7 @@ export default function Theology() {
         </div>
         <h1 className={styles.title}>📖 EndTimesHub.com</h1>
         <p className={styles.subtitle}>Supporting Theologians & Prophecy Scholars</p>
-        <span className={styles.version}>v{VERSION}</span>
+        
       </header>
 
       <nav className={styles.tabs}>
@@ -226,6 +226,7 @@ export default function Theology() {
 
       <footer className={styles.footer}>
         <p>Theological data synced from local Prophecy News Tracker</p>
+        <p className={styles.version}>v{VERSION}</p>
       </footer>
 
       {/* Theology page styles */}

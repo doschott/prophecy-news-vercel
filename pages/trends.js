@@ -259,7 +259,7 @@ export default function Trends() {
         </div>
         <h1 className={styles.title}>📖 EndTimesHub.com</h1>
         <p className={styles.subtitle}>Analytics and patterns from prophetic news</p>
-        <span className={styles.version}>v{VERSION}</span>
+        
       </header>
 
       <nav className={styles.tabs}>
@@ -346,6 +346,7 @@ export default function Trends() {
 
       <footer className={styles.footer}>
         <p>Data synced from local Prophecy News Tracker</p>
+        <p className={styles.version}>v{VERSION}</p>
       </footer>
     </div>
   )

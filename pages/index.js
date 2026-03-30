@@ -79,7 +79,7 @@ export default function Home() {
         </div>
         <h1 className={styles.title}>📖 EndTimesHub.com</h1>
         <p className={styles.subtitle}>Tracking prophetic events worldwide</p>
-        <span className={styles.version}>v{VERSION}</span>
+        
       </header>
 
       <nav className={styles.tabs}>
@@ -188,6 +188,7 @@ export default function Home() {
 
       <footer className={styles.footer}>
         <p>Data synced from local Prophecy News Tracker</p>
+        <p className={styles.version}>v{VERSION}</p>
       </footer>
     </div>
   )
