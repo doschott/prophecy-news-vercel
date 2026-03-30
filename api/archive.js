@@ -87,7 +87,7 @@ export default async function handler(req, res) {
     if (startDate) {
       const start = new Date(startDate)
       articles = articles.filter(article => {
-        const published = article.published ? new Date(article.published) : null
+        const published = article.published_at ? new Date(article.published_at) : null
         return published && published >= start
       })
     }
@@ -96,7 +96,7 @@ export default async function handler(req, res) {
       const end = new Date(endDate)
       end.setHours(23, 59, 59, 999)
       articles = articles.filter(article => {
-        const published = article.published ? new Date(article.published) : null
+        const published = article.published_at ? new Date(article.published_at) : null
         return published && published <= end
       })
     }
@@ -121,8 +121,8 @@ export default async function handler(req, res) {
 
     // Sort by published date (newest first)
     articles.sort((a, b) => {
-      const dateA = a.published ? new Date(a.published) : new Date(0)
-      const dateB = b.published ? new Date(b.published) : new Date(0)
+      const dateA = a.published_at ? new Date(a.published_at) : new Date(0)
+      const dateB = b.published_at ? new Date(b.published_at) : new Date(0)
       return dateB - dateA
     })
 
