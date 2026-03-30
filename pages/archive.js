@@ -73,6 +73,46 @@ export default function Archive() {
     fetchArchive()
   }
 
+  function exportToCSV() {
+    if (articles.length === 0) return
+    
+    const headers = ['Title', 'Source', 'Published', 'Summary', 'Relevance Score', 'Trust Level', 'URL']
+    const rows = articles.map(a => [
+      (a.title || '').replace(/"/g, '""'),
+      a.source || '',
+      a.published || '',
+      (a.summary || '').replace(/"/g, '""'),
+      a.relevance_score || a.score || '',
+      a.trust_level || '',
+      a.url || a.source_url || ''
+    ])
+    
+    const csv = [
+      headers.join(','),
+      ...rows.map(r => r.map(cell => `"${cell}"`).join(','))
+    ].join('\n')
+    
+    const blob = new Blob([csv], { type: 'text/csv' })
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = url
+    link.download = `archive-export-${new Date().toISOString().split('T')[0]}.csv`
+    link.click()
+    URL.revokeObjectURL(url)
+  }
+
+  function exportToJSON() {
+    if (articles.length === 0) return
+    const data = JSON.stringify(articles, null, 2)
+    const blob = new Blob([data], { type: 'application/json' })
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = url
+    link.download = `archive-export-${new Date().toISOString().split('T')[0]}.json`
+    link.click()
+    URL.revokeObjectURL(url)
+  }
+
   function formatDate(dateStr) {
     if (!dateStr) return 'N/A'
     const date = new Date(dateStr)
@@ -208,6 +248,12 @@ export default function Archive() {
           <span>{total} articles found</span>
           {totalPages > 1 && (
             <span>Page {page} of {totalPages}</span>
+          )}
+          {articles.length > 0 && (
+            <div className={styles.exportButtons}>
+              <button onClick={exportToCSV} className={styles.exportButton}>📥 CSV</button>
+              <button onClick={exportToJSON} className={styles.exportButton}>📥 JSON</button>
+            </div>
           )}
         </div>
       )}

@@ -952,6 +952,31 @@
 }
 
 /* ============================================
+   EXPORT BUTTONS
+   ============================================ */
+.exportButtons {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.exportButton {
+  background: var(--cyber-card-bg);
+  border: 1px solid var(--cyber-border);
+  color: var(--cyber-text);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.exportButton:hover {
+  background: var(--cyber-accent-purple);
+  border-color: var(--cyber-accent-purple);
+}
+
+/* ============================================
    RESPONSIVE
    ============================================ */
 @media (max-width: 768px) {

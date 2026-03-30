@@ -26,6 +26,10 @@
     {
       "src": "/api/theologians",
       "dest": "/api/theologians.js"
+    },
+    {
+      "src": "/api/archive",
+      "dest": "/api/archive.js"
     }
   ]
 }
