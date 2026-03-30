@@ -80,7 +80,7 @@ export default function Archive() {
     const rows = articles.map(a => [
       (a.title || '').replace(/"/g, '""'),
       a.source || '',
-      a.published || '',
+      a.published_at || a.published || '',
       (a.summary || '').replace(/"/g, '""'),
       a.relevance_score || a.score || '',
       a.trust_level || '',
@@ -293,7 +293,7 @@ export default function Archive() {
                   <p className={styles.articleSummary}>{article.summary}</p>
                   <div className={styles.articleMeta}>
                     <span className={styles.source}>{article.source || 'Unknown'}</span>
-                    <span className={styles.date}>{formatDate(article.published)}</span>
+                    <span className={styles.date}>{formatDate(article.published_at || article.published)}</span>
                     {(article.relevance_score || article.score) && (
                       <span
                         className={styles.score}
