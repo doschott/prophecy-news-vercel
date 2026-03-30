@@ -161,10 +161,12 @@ export default function Trends() {
         scales: {
           y: { 
             beginAtZero: true,
-            grid: { color: 'var(--cyber-border)' }
+            grid: { color: 'var(--cyber-border)' },
+            ticks: { color: '#ffffff' }
           },
           x: { 
-            grid: { color: 'var(--cyber-border)' }
+            grid: { color: 'var(--cyber-border)' },
+            ticks: { color: '#ffffff' }
           }
         }
       }
@@ -191,7 +193,7 @@ export default function Trends() {
         plugins: {
           legend: {
             position: 'right',
-            labels: { color: 'var(--cyber-text-dim)', boxWidth: 12, padding: 8 }
+            labels: { color: '#ffffff', boxWidth: 12, padding: 8 }
           }
         }
       }
@@ -221,10 +223,12 @@ export default function Trends() {
         scales: {
           y: { 
             beginAtZero: true,
-            grid: { color: 'var(--cyber-border)' }
+            grid: { color: 'var(--cyber-border)' },
+            ticks: { color: '#ffffff' }
           },
           x: { 
-            grid: { display: false }
+            grid: { display: false },
+            ticks: { color: '#ffffff' }
           }
         }
       }
