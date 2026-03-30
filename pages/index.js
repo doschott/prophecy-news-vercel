@@ -25,7 +25,8 @@ export default function Home() {
 
   async function fetchData() {
     try {
-      const res = await fetch('/api/data')
+      const url = searchQuery ? `/api/data?search=${encodeURIComponent(searchQuery)}` : '/api/data'
+      const res = await fetch(url)
       if (!res.ok) throw new Error('Failed to fetch data')
       const data = await res.json()
       setArticles(data.articles || [])
@@ -40,29 +41,30 @@ export default function Home() {
   }
 
   function formatDate(dateStr) {
-    if (!dateStr) return 'N/A'
+    if (!dateStr) return ''
     const date = new Date(dateStr)
     return date.toLocaleDateString('en-US', {
       month: 'short',
       day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
+      year: 'numeric'
     })
   }
 
   function getScoreColor(score) {
-    if (score >= 80) return '#ef4444'
-    if (score >= 60) return '#f97316'
-    if (score >= 40) return '#eab308'
+    const s = score || 0
+    if (s >= 0.8) return '#ef4444'
+    if (s >= 0.6) return '#f97316'
+    if (s >= 0.4) return '#eab308'
     return '#22c55e'
   }
 
+  // Client-side search filter (for real-time filtering)
   const filteredArticles = articles.filter(article => {
     const matchesCritical = showCriticalOnly ? article.critical : true
     const matchesSearch = searchQuery === '' || 
-      article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      article.summary.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      article.source.toLowerCase().includes(searchQuery.toLowerCase())
+      (article.title && article.title.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (article.summary && article.summary.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (article.source && article.source.toLowerCase().includes(searchQuery.toLowerCase()))
     return matchesCritical && matchesSearch
   })
 
@@ -116,11 +118,17 @@ export default function Home() {
       <div className={styles.controls}>
         <input
           type="text"
-          placeholder="Search articles..."
+          placeholder="Search articles (searches all time)..."
           value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
+          onChange={(e) => {
+            setSearchQuery(e.target.value)
+          }}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') fetchData()
+          }}
           className={styles.searchInput}
         />
+        <button onClick={() => fetchData()} className={styles.filterButton}>Search</button>
         <label className={styles.toggle}>
           <input
             type="checkbox"
@@ -143,7 +151,7 @@ export default function Home() {
             filteredArticles.map((article, index) => (
               <a 
                 key={index} 
-                href={article.url} 
+                href={article.source_url || article.url || '#'} 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className={styles.articleCard}
@@ -155,13 +163,15 @@ export default function Home() {
                 <p className={styles.articleSummary}>{article.summary}</p>
                 <div className={styles.articleMeta}>
                   <span className={styles.source}>{article.source}</span>
-                  <span className={styles.date}>{formatDate(article.published)}</span>
-                  <span 
-                    className={styles.score}
-                    style={{ backgroundColor: getScoreColor(article.score) }}
-                  >
-                    {article.score}
-                  </span>
+                  <span className={styles.date}>{formatDate(article.published_at)}</span>
+                  {article.relevance_score !== undefined && article.relevance_score !== null && (
+                    <span 
+                      className={styles.score}
+                      style={{ backgroundColor: getScoreColor(article.relevance_score) }}
+                    >
+                      {(article.relevance_score * 100).toFixed(0)}%
+                    </span>
+                  )}
                 </div>
                 {article.categories && article.categories.length > 0 && (
                   <div className={styles.categories}>

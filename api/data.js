@@ -66,6 +66,7 @@ export default async function handler(req, res) {
   }
 
   const client = await pool.connect()
+  const { search, days = 7 } = req.query // Default 7 days for dashboard
   
   try {
     // Ensure table exists
@@ -83,8 +84,33 @@ export default async function handler(req, res) {
     }
 
     const row = result.rows[0]
+    let articles = row.articles || []
+    
+    // Filter to past N days if no search (search mode bypasses date filter)
+    if (!search) {
+      const daysNum = parseInt(days, 10) || 7
+      const cutoff = new Date()
+      cutoff.setDate(cutoff.getDate() - daysNum)
+      articles = articles.filter(a => new Date(a.published_at) >= cutoff)
+    } else {
+      // Search mode: filter by search term (case-insensitive)
+      const searchLower = search.toLowerCase()
+      articles = articles.filter(a => 
+        (a.title && a.title.toLowerCase().includes(searchLower)) ||
+        (a.summary && a.summary.toLowerCase().includes(searchLower)) ||
+        (a.source && a.source.toLowerCase().includes(searchLower))
+      )
+    }
+    
+    // Sort by date (most recent first), then by relevance score
+    articles.sort((a, b) => {
+      const dateA = new Date(a.published_at || 0)
+      const dateB = new Date(b.published_at || 0)
+      return dateB - dateA
+    })
+
     const data = {
-      articles: row.articles,
+      articles: articles,
       lastUpdated: row.last_updated,
       totalArticles: row.total_articles,
       criticalCount: row.critical_count
