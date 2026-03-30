@@ -24,8 +24,8 @@ export default function Videos() {
     try {
       setLoading(true)
       const url = selectedCategory === 'All' 
-        ? '/api/videos' 
-        : `/api/videos?category=${selectedCategory.toLowerCase()}`
+        ? '/api/videos?days=14' 
+        : `/api/videos?category=${selectedCategory.toLowerCase()}&days=14`
       const res = await fetch(url)
       if (!res.ok) throw new Error('Failed to fetch videos')
       const data = await res.json()

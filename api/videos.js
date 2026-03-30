@@ -53,19 +53,25 @@ export default async function handler(req, res) {
     const row = result.rows[0]
     let videos = row.videos || []
 
+    // Filter to past 2 weeks by default if no days specified
+    const daysNum = days ? parseInt(days, 10) : 14
+    const cutoff = new Date()
+    cutoff.setDate(cutoff.getDate() - daysNum)
+    videos = videos.filter(v => new Date(v.published_at) >= cutoff)
+
+    // Sort by date (most recent) then by views (highest to lowest)
+    videos.sort((a, b) => {
+      const dateA = new Date(a.published_at || 0)
+      const dateB = new Date(b.published_at || 0)
+      if (dateB - dateA !== 0) return dateB - dateA
+      return (b.view_count || 0) - (a.view_count || 0)
+    })
+
     // Filter by category if provided
     if (category && category.toLowerCase() !== 'all') {
       videos = videos.filter(v => 
         v.video_category && v.video_category.toLowerCase() === category.toLowerCase()
       )
-    }
-
-    // Filter by days if provided
-    if (days) {
-      const daysNum = parseInt(days, 10)
-      const cutoff = new Date()
-      cutoff.setDate(cutoff.getDate() - daysNum)
-      videos = videos.filter(v => new Date(v.published_at) >= cutoff)
     }
 
     // Count trending videos
