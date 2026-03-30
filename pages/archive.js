@@ -152,7 +152,7 @@ export default function Archive() {
             <ThemeSelector />
           </div>
         </div>
-        <h1 className={styles.title}>📚 Prophecy News Archive</h1>
+        <h1 className={styles.title}>📖 EndTimesHub.com</h1>
         <p className={styles.subtitle}>Search through all historical articles</p>
       </header>
 

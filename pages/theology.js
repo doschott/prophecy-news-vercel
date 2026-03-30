@@ -69,7 +69,7 @@ export default function Theology() {
               <ThemeSelector />
             </div>
           </div>
-          <h1 className={styles.title}>📖 Prophecy News Tracker</h1>
+          <h1 className={styles.title}>📖 EndTimesHub.com</h1>
           <p className={styles.subtitle}>Tracking prophetic events worldwide</p>
           <span className={styles.version}>v{VERSION}</span>
         </header>
@@ -96,7 +96,7 @@ export default function Theology() {
             <ThemeSelector />
           </div>
         </div>
-        <h1 className={styles.title}>📖 Prophecy News Tracker</h1>
+        <h1 className={styles.title}>📖 EndTimesHub.com</h1>
         <p className={styles.subtitle}>Supporting Theologians & Prophecy Scholars</p>
         <span className={styles.version}>v{VERSION}</span>
       </header>

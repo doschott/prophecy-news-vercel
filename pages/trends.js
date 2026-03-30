@@ -257,7 +257,7 @@ export default function Trends() {
             <ThemeSelector />
           </div>
         </div>
-        <h1 className={styles.title}>📊 Prophecy Trends</h1>
+        <h1 className={styles.title}>📖 EndTimesHub.com</h1>
         <p className={styles.subtitle}>Analytics and patterns from prophetic news</p>
         <span className={styles.version}>v{VERSION}</span>
       </header>

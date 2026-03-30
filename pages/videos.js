@@ -88,7 +88,7 @@ export default function Videos() {
             <ThemeSelector />
           </div>
         </div>
-        <h1 className={styles.title}>📺 Prophecy News Tracker</h1>
+        <h1 className={styles.title}>📖 EndTimesHub.com</h1>
         <p className={styles.subtitle}>YouTube videos tracking prophetic events</p>
       </header>
 

@@ -75,7 +75,7 @@ export default function Home() {
             <ThemeSelector />
           </div>
         </div>
-        <h1 className={styles.title}>📖 Prophecy News Tracker</h1>
+        <h1 className={styles.title}>📖 EndTimesHub.com</h1>
         <p className={styles.subtitle}>Tracking prophetic events worldwide</p>
         <span className={styles.version}>v{VERSION}</span>
       </header>
