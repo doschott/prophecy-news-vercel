@@ -105,6 +105,9 @@ export default function Videos() {
         <Link href="/theology" className={`${styles.tab} ${router.pathname === '/theology' ? styles.tabActive : ''}`}>
           📖 Theology
         </Link>
+        <Link href="/archive" className={`${styles.tab} ${router.pathname === '/archive' ? styles.tabActive : ''}`}>
+          📚 Archive
+        </Link>
       </nav>
 
       <div className={styles.stats}>
