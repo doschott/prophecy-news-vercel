@@ -63,7 +63,10 @@ export default async function handler(req, res) {
     videos.sort((a, b) => {
       const dateA = new Date(a.published_at || 0)
       const dateB = new Date(b.published_at || 0)
-      if (dateB - dateA !== 0) return dateB - dateA
+      // Compare only the calendar date (year-month-day), not time
+      const dayA = dateA.toISOString().split('T')[0]
+      const dayB = dateB.toISOString().split('T')[0]
+      if (dayB !== dayA) return dayB.localeCompare(dayA)
       return (b.view_count || 0) - (a.view_count || 0)
     })
 
