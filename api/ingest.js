@@ -52,13 +52,24 @@ async function initMetaTable(client) {
 }
 
 export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' })
-  }
-
   const client = await pool.connect()
   
   try {
+    // DELETE method - remove article by article_id
+    if (req.method === 'DELETE') {
+      const { articleId } = req.query
+      if (!articleId) {
+        return res.status(400).json({ error: 'articleId query param required' })
+      }
+      await client.query('DELETE FROM prophecy_articles WHERE article_id = $1', [parseInt(articleId)])
+      return res.status(200).json({ success: true, message: `Article ${articleId} deleted` })
+    }
+
+    // POST method - ingest articles
+    if (req.method !== 'POST') {
+      return res.status(405).json({ error: 'Method not allowed' })
+    }
+
     const { articles, totalArticles, criticalCount } = req.body
 
     if (articles !== undefined) {
