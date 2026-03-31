@@ -55,22 +55,18 @@ export default async function handler(req, res) {
   const client = await pool.connect()
   
   try {
-    // DELETE method - remove article by article_id
-    if (req.method === 'DELETE') {
-      const { articleId } = req.query
-      if (!articleId) {
-        return res.status(400).json({ error: 'articleId query param required' })
-      }
-      await client.query('DELETE FROM prophecy_articles WHERE article_id = $1', [parseInt(articleId)])
-      return res.status(200).json({ success: true, message: `Article ${articleId} deleted` })
-    }
-
-    // POST method - ingest articles
+    // POST method - ingest articles or delete
     if (req.method !== 'POST') {
       return res.status(405).json({ error: 'Method not allowed' })
     }
 
-    const { articles, totalArticles, criticalCount } = req.body
+    const { articles, totalArticles, criticalCount, action, articleId } = req.body
+
+    // Handle delete action
+    if (action === 'delete' && articleId) {
+      await client.query('DELETE FROM prophecy_articles WHERE article_id = $1', [parseInt(articleId)])
+      return res.status(200).json({ success: true, message: `Article ${articleId} deleted` })
+    }
 
     if (articles !== undefined) {
       if (!Array.isArray(articles)) {
