@@ -8,51 +8,35 @@ const pool = new Pool({
   connectionTimeoutMillis: 10000,
 })
 
-async function initTable(client) {
-  await client.query(`
-    CREATE TABLE IF NOT EXISTS prophecy_data (
-      id SERIAL PRIMARY KEY,
-      articles JSONB NOT NULL,
-      total_articles INTEGER NOT NULL,
-      critical_count INTEGER NOT NULL,
-      last_updated TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
-    )
-  `)
-}
-
 // Default sample data
 const DEFAULT_DATA = {
   articles: [
     {
       title: "Major Earthquake Strikes Middle East Region",
-      url: "https://example.com/earthquake",
+      source_url: "https://example.com/earthquake",
       source: "Reuters",
-      published: new Date().toISOString(),
+      published_at: new Date().toISOString(),
       summary: "A significant earthquake has been reported in a key Middle Eastern location, raising concerns among prophetic watchers.",
-      score: 85,
-      critical: true,
-      categories: ["natural-events", "middle-east"]
+      relevance_score: 0.85,
+      critical: true
     },
     {
       title: "Global Currency Reset Discussions Continue",
-      url: "https://example.com/currency",
+      source_url: "https://example.com/currency",
       source: "Financial Times",
-      published: new Date(Date.now() - 3600000).toISOString(),
+      published_at: new Date(Date.now() - 3600000).toISOString(),
       summary: "World economic leaders discuss potential changes to global monetary systems.",
-      score: 72,
-      critical: false,
-      categories: ["economy", "global"]
+      relevance_score: 0.72,
+      critical: false
     },
     {
       title: "Tensions Rise in Eastern Europe",
-      url: "https://example.com/ukraine",
+      source_url: "https://example.com/ukraine",
       source: "BBC News",
-      published: new Date(Date.now() - 7200000).toISOString(),
+      published_at: new Date(Date.now() - 7200000).toISOString(),
       summary: "Ongoing geopolitical tensions show no signs of resolution as diplomatic efforts stall.",
-      score: 78,
-      critical: true,
-      categories: ["geopolitics", "europe"]
+      relevance_score: 0.78,
+      critical: true
     }
   ],
   lastUpdated: new Date().toISOString(),
@@ -66,54 +50,84 @@ export default async function handler(req, res) {
   }
 
   const client = await pool.connect()
-  const { search, days = 7 } = req.query // Default 7 days for dashboard
+  const { search, days = 30 } = req.query
   
   try {
-    // Ensure table exists
-    await initTable(client)
-    
-    const result = await client.query(
-      `SELECT articles, total_articles, critical_count, last_updated
-       FROM prophecy_data
-       ORDER BY created_at DESC
-       LIMIT 1`
+    // Check if articles table has any data
+    const countResult = await client.query(
+      `SELECT COUNT(*) as cnt FROM prophecy_articles`
     )
 
-    if (result.rows.length === 0) {
+    if (parseInt(countResult.rows[0].cnt) === 0) {
       return res.status(200).json(DEFAULT_DATA)
     }
 
-    const row = result.rows[0]
-    let articles = row.articles || []
+    // Build query based on filters
+    let query
+    let params = []
+    const daysNum = parseInt(days, 10) || 30
     
-    // Filter to past N days if no search (search mode bypasses date filter)
-    if (!search) {
-      const daysNum = parseInt(days, 10) || 7
-      const cutoff = new Date()
-      cutoff.setDate(cutoff.getDate() - daysNum)
-      articles = articles.filter(a => new Date(a.published_at) >= cutoff)
-    } else {
-      // Search mode: filter by search term (case-insensitive)
+    if (search) {
+      // Search mode: search in title, summary, source
       const searchLower = search.toLowerCase()
-      articles = articles.filter(a => 
-        (a.title && a.title.toLowerCase().includes(searchLower)) ||
-        (a.summary && a.summary.toLowerCase().includes(searchLower)) ||
-        (a.source && a.source.toLowerCase().includes(searchLower))
-      )
+      query = `
+        SELECT article_id, id, title, content, summary, source, source_url,
+               author, published_at, collected_at, image_url, relevance_score,
+               is_prophecy_related, trust_score, trust_level, critical
+        FROM prophecy_articles
+        WHERE (title ILIKE $1 OR summary ILIKE $1 OR source ILIKE $1)
+        ORDER BY published_at DESC NULLS LAST, relevance_score DESC
+        LIMIT 200
+      `
+      params = [`%${search}%`]
+    } else {
+      // Date filter mode
+      query = `
+        SELECT article_id, id, title, content, summary, source, source_url,
+               author, published_at, collected_at, image_url, relevance_score,
+               is_prophecy_related, trust_score, trust_level, critical
+        FROM prophecy_articles
+        WHERE published_at >= NOW() - INTERVAL '${daysNum} days'
+        ORDER BY published_at DESC NULLS LAST, relevance_score DESC
+        LIMIT 200
+      `
     }
+
+    const result = await client.query(query, params)
     
-    // Sort by date (most recent first), then by relevance score
-    articles.sort((a, b) => {
-      const dateA = new Date(a.published_at || 0)
-      const dateB = new Date(b.published_at || 0)
-      return dateB - dateA
-    })
+    // Get metadata
+    const metaResult = await client.query(`
+      SELECT total_articles, critical_count, last_updated 
+      FROM prophecy_meta 
+      ORDER BY id DESC 
+      LIMIT 1
+    `)
+
+    const articles = result.rows.map(row => ({
+      id: row.id,
+      title: row.title,
+      content: row.content,
+      summary: row.summary,
+      source: row.source,
+      source_url: row.source_url,
+      author: row.author,
+      published_at: row.published_at,
+      collected_at: row.collected_at,
+      image_url: row.image_url,
+      relevance_score: row.relevance_score,
+      is_prophecy_related: row.is_prophecy_related === 1,
+      trust_score: row.trust_score,
+      trust_level: row.trust_level,
+      critical: row.critical === 1
+    }))
+
+    const meta = metaResult.rows[0] || { total_articles: articles.length, critical_count: 0, last_updated: new Date() }
 
     const data = {
       articles: articles,
-      lastUpdated: row.last_updated,
-      totalArticles: row.total_articles,
-      criticalCount: row.critical_count
+      lastUpdated: meta.last_updated,
+      totalArticles: parseInt(meta.total_articles),
+      criticalCount: parseInt(meta.critical_count)
     }
 
     return res.status(200).json(data)
