@@ -23,7 +23,6 @@ const TIMELINE_EVENTS = [
   { id: 'nt-2', era: 'nt', period: 'Jesus\' Ministry', year: '27-30 AD', fulfilled: true, icon: '✝️', description: 'Christ preaches the Kingdom, performs miracles', scriptures: ['Isaiah 61:1-2', 'Luke 4:18-21'] },
   { id: 'nt-3', era: 'nt', period: 'Crucifixion & Resurrection', year: '30 AD', fulfilled: true, icon: '💔', description: 'Christ dies for sins, rises on third day', scriptures: ['Isaiah 53:5-12', '1 Peter 2:24', 'Romans 4:25'] },
   { id: 'nt-4', era: 'nt', period: 'Pentecost', year: '33 AD', fulfilled: true, icon: '🔥', description: 'Holy Spirit descends, Church Age begins', scriptures: ['Acts 2:1-4'] },
-  { id: 'nt-5', era: 'nt', period: 'St. Thomas in India', year: '52 AD', fulfilled: true, icon: '✝️', description: 'Gospel reaches India via Thomas', scriptures: ['John 21:25'] },
   
   // === FULFILLED: MODERN ERA ===
   { id: 'mod-1', era: 'modern', period: 'Israel Reborn', year: '1948', fulfilled: true, icon: '🇮🇱', description: 'State of Israel reestablished after 2000 years', scriptures: ['Ezekiel 36-37', 'Isaiah 66:7-8'] },
