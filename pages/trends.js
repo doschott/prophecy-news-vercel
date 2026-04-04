@@ -32,6 +32,7 @@ const TIMELINE_EVENTS = [
   
   // === FUTURE: TRIBULATION (Unfulfilled) ===
   { id: 'fut-1', era: 'trib', period: 'Rapture', year: 'Any Moment', fulfilled: false, icon: '☁️', description: 'Church caught up to meet Christ in the air', scriptures: ['1 Thessalonians 4:16-17', 'John 14:1-3'] },
+  { id: 'fut-1b', era: 'trib', period: 'Throne of Rewards', year: 'At Rapture', fulfilled: false, icon: '👑', description: 'Believers judged for works; rewards distributed (Bema Seat)', scriptures: ['1 Corinthians 3:11-15', '2 Corinthians 5:10', 'Romans 14:10-12'] },
   { id: 'fut-2', era: 'trib', period: 'Tribulation Begins', year: 'T+0', fulfilled: false, icon: '⏳', description: '7-year tribulation begins; Antichrist revealed', scriptures: ['Daniel 9:27', '2 Thessalonians 2:3-4'] },
   { id: 'fut-3', era: 'trib', period: 'Abomination of Desolation', year: 'T+3.5 yrs', fulfilled: false, icon: '💀', description: 'Antichrist defiles the Temple, demands worship', scriptures: ['Daniel 9:27', 'Matthew 24:15-16', '2 Thessalonians 2:4'] },
   { id: 'fut-4', era: 'trib', period: 'False Prophet', year: 'T+3.5 yrs', fulfilled: false, icon: '🎭', description: 'Global false religious system arises', scriptures: ['Revelation 13:11-18', '2 Thessalonians 2:9-12'] },
