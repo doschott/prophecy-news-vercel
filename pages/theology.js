@@ -74,8 +74,8 @@ export default function Theology() {
           
         </header>
         <nav className={styles.tabs}>
-          <Link href="/" className={`${styles.tab} ${router.pathname === '/' ? styles.tabActive : ''}`}>📰 Dashboard</Link>
-          <Link href="/trends" className={`${styles.tab} ${router.pathname === '/trends' ? styles.tabActive : ''}`}>📊 Trends</Link>
+          <Link href="/" className={`${styles.tab} ${router.pathname === '/' ? styles.tabActive : ''}`}>📊 Trends</Link>
+          <Link href="/news" className={`${styles.tab} ${router.pathname === '/news' ? styles.tabActive : ''}`}>📰 News</Link>
           <Link href="/videos" className={`${styles.tab} ${router.pathname === '/videos' ? styles.tabActive : ''}`}>📺 Videos</Link>
           <Link href="/theology" className={`${styles.tab} ${router.pathname === '/theology' ? styles.tabActive : ''}`}>📖 Theology</Link>
           <Link href="/archive" className={`${styles.tab} ${router.pathname === '/archive' ? styles.tabActive : ''}`}>📚 Archive</Link>
@@ -103,10 +103,10 @@ export default function Theology() {
 
       <nav className={styles.tabs}>
         <Link href="/" className={`${styles.tab} ${router.pathname === '/' ? styles.tabActive : ''}`}>
-          📰 Dashboard
-        </Link>
-        <Link href="/trends" className={`${styles.tab} ${router.pathname === '/trends' ? styles.tabActive : ''}`}>
           📊 Trends
+        </Link>
+        <Link href="/news" className={`${styles.tab} ${router.pathname === '/news' ? styles.tabActive : ''}`}>
+          📰 News
         </Link>
         <Link href="/videos" className={`${styles.tab} ${router.pathname === '/videos' ? styles.tabActive : ''}`}>
           📺 Videos

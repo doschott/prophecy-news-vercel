@@ -268,10 +268,10 @@ export default function Trends() {
 
       <nav className={styles.tabs}>
         <Link href="/" className={`${styles.tab} ${router.pathname === '/' ? styles.tabActive : ''}`}>
-          📰 Dashboard
-        </Link>
-        <Link href="/trends" className={`${styles.tab} ${router.pathname === '/trends' ? styles.tabActive : ''}`}>
           📊 Trends
+        </Link>
+        <Link href="/news" className={`${styles.tab} ${router.pathname === '/news' ? styles.tabActive : ''}`}>
+          📰 News
         </Link>
         <Link href="/videos" className={`${styles.tab} ${router.pathname === '/videos' ? styles.tabActive : ''}`}>
           📺 Videos
