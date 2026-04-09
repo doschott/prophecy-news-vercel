@@ -51,6 +51,20 @@ async function initMetaTable(client) {
   `)
 }
 
+async function initVideosTable(client) {
+  await client.query(`
+    CREATE TABLE IF NOT EXISTS prophecy_videos (
+      id SERIAL PRIMARY KEY,
+      videos JSONB NOT NULL,
+      total_videos INTEGER NOT NULL,
+      prophecy_videos INTEGER NOT NULL,
+      channel_count INTEGER NOT NULL,
+      last_updated TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `)
+}
+
 export default async function handler(req, res) {
   const client = await pool.connect()
   
@@ -60,7 +74,8 @@ export default async function handler(req, res) {
       return res.status(405).json({ error: 'Method not allowed' })
     }
 
-    const { articles, totalArticles, criticalCount, action, articleId } = req.body
+    const { articles, totalArticles, criticalCount, action, articleId,
+            videos, totalVideos, prophecyVideos, channelCount } = req.body
 
     // Handle delete action
     if (action === 'delete' && articleId) {
@@ -68,13 +83,15 @@ export default async function handler(req, res) {
       return res.status(200).json({ success: true, message: `Article ${articleId} deleted` })
     }
 
+    await client.query('BEGIN')
+    
+    // Handle articles
     if (articles !== undefined) {
       if (!Array.isArray(articles)) {
+        await client.query('ROLLBACK')
         return res.status(400).json({ error: 'articles must be an array' })
       }
 
-      await client.query('BEGIN')
-      
       await initArticlesTable(client)
       await initMetaTable(client)
 
@@ -127,9 +144,21 @@ export default async function handler(req, res) {
         INSERT INTO prophecy_meta (total_articles, critical_count, last_updated)
         VALUES ($1, $2, NOW())
       `, [totalArticles || articles.length, criticalCount || 0])
-
-      await client.query('COMMIT')
     }
+
+    // Handle videos
+    if (videos !== undefined) {
+      await initVideosTable(client)
+      
+      // Clear old videos and insert new batch
+      await client.query('DELETE FROM prophecy_videos')
+      await client.query(`
+        INSERT INTO prophecy_videos (videos, total_videos, prophecy_videos, channel_count, last_updated)
+        VALUES ($1, $2, $3, $4, NOW())
+      `, [JSON.stringify(videos), totalVideos || 0, prophecyVideos || 0, channelCount || 0])
+    }
+
+    await client.query('COMMIT')
 
     return res.status(200).json({
       success: true,
